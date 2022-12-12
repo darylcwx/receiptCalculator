@@ -1,1 +1,406 @@
-test
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Receipt Calculator</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+			crossorigin="anonymous"
+		/>
+		<style>
+			.accordion {
+				margin: 40px 0;
+			}
+		</style>
+	</head>
+	<body onload="repopulate()">
+		<div class="container-fluid p-5 height bg-dark">
+			<div class="intro p-5 bg-primary text-white rounded">
+				<h1>Hello, world!</h1>
+				This only works if one person paid for everything first. <br />
+				Simply include <br />
+				1. Names of your friends <br />
+				2. Name and price of items <br />
+				3. Participation <br />
+				4. Who paid first and whether or not GST was included <br />
+				and let us handle the rest for you!
+			</div>
+
+			<!-- For OCR in future -->
+			<div class="mb-3">
+				<label for="formFile" class="form-label"
+					>Default file input example</label
+				>
+				<input class="form-control" type="file" id="formFile" />
+			</div>
+
+			<!-- Manual entry for now -->
+			<div class="accordion" id="accordionExample">
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="headingOne">
+						<button
+							class="accordion-button"
+							type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#collapseOne"
+							aria-expanded="true"
+							aria-controls="collapseOne"
+						>
+							People Involved
+						</button>
+					</h2>
+					<div
+						id="collapseOne"
+						class="accordion-collapse collapse show"
+						aria-labelledby="headingOne"
+						data-bs-parent="#accordionExample"
+					>
+						<div class="accordion-body" id="people">
+							<div class="input-group mb-3">
+								<input
+									type="text"
+									class="form-control"
+									placeholder="Name"
+									onchange="repopulate()"
+								/>
+							</div>
+							<div class="input-group mb-3">
+								<input
+									type="text"
+									class="form-control"
+									placeholder="Name"
+									onchange="repopulate()"
+								/>
+							</div>
+							<div class="d-flex justify-content-between">
+								<button
+									id="newPersonBtn"
+									class="btn btn-primary"
+									onclick="newPerson()"
+								>
+									Add person
+								</button>
+								<button
+									id="removePersonBtn"
+									class="btn btn-danger"
+									onclick="removePerson()"
+								>
+									Remove last person
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="accordion" id="accordionExample">
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="headingTwo">
+						<button
+							class="accordion-button"
+							type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#collapseTwo"
+							aria-expanded="true"
+							aria-controls="collapseTwo"
+						>
+							Items
+						</button>
+					</h2>
+					<div
+						id="collapseTwo"
+						class="accordion-collapse collapse show"
+						aria-labelledby="headingTwo"
+						data-bs-parent="#accordionExample"
+					>
+						<div class="accordion-body" id="items">
+							<div class="row mb-3">
+								<div class="col-8">
+									<input
+										type="text"
+										class="form-control"
+										placeholder="Item Name"
+										onchange="repopulate()"
+									/>
+								</div>
+								<div class="col-4">
+									<div class="input-group">
+										<span class="input-group-text">$</span>
+										<input
+											type="number"
+											step="0.01"
+											class="form-control"
+											placeholder="Price"
+											onchange="repopulate()"
+										/>
+									</div>
+								</div>
+							</div>
+							<div class="d-flex justify-content-between">
+								<button
+									id="newItemBtn"
+									class="btn btn-primary"
+									onclick="newItem()"
+								>
+									Add item
+								</button>
+								<button
+									id="removeItemBtn"
+									class="btn btn-danger"
+									onclick="removeItem()"
+								>
+									Remove last item
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="accordion" id="accordionExample">
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="headingThree">
+						<button
+							class="accordion-button"
+							type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#collapseThree"
+							aria-expanded="true"
+							aria-controls="collapseThree"
+						>
+							Who paid first?
+						</button>
+					</h2>
+					<div
+						id="collapseThree"
+						class="accordion-collapse collapse show"
+						aria-labelledby="headingThree"
+						data-bs-parent="#accordionExample"
+					>
+						<div class="accordion-body" id="items">
+							<div class="row align-items-center">
+								<div class="col-6">
+									<select class="form-select" id="ddl"></select>
+								</div>
+								<div class="col-6 text-center">
+									<input id="gst" class="form-check-input" type="checkbox" />
+									<label class="form-check-label" for="gst">Add 7% GST?</label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="accordion" id="accordionExample">
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="headingFour">
+						<button
+							class="accordion-button"
+							type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#collapseFour"
+							aria-expanded="true"
+							aria-controls="collapseFour"
+						>
+							Participation
+						</button>
+					</h2>
+					<div
+						id="collapseFour"
+						class="accordion-collapse collapse show"
+						aria-labelledby="headingFour"
+						data-bs-parent="#accordionExample"
+					>
+						<div class="accordion-body" id="items">
+							<div class="table-responsive">
+								<table class="table" id="table"></table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="text-center">
+				<button class="btn btn-primary w-50">Calculate!</button>
+			</div>
+		</div>
+		<script>
+			// var people = document.getElementById("people");
+			// var persons = people.childNodes;
+			// var lastPerson = persons[persons.length - 4];
+			// var lastPersonInput = lastPerson.childNodes[1];
+			// console.log(lastPerson);
+			// console.log(lastPersonInput);
+			// lastPersonInput.addEventListener("keyup", newPerson(people, lastPerson));
+
+			// function newPerson(people, lastPerson) {
+			// 	const newDiv = document.createElement("div");
+			// 	newDiv.className = "input-group mb-3";
+
+			// 	const newInput = document.createElement("input");
+			// 	newInput.type = "text";
+			// 	newInput.className = "form-control";
+
+			// 	newDiv.appendChild(newInput);
+			// 	people.appendChild(newDiv);
+			// }
+			function newPerson() {
+				const btn = document.getElementById("newPersonBtn");
+				const row = btn.parentNode;
+				const parent = row.parentNode;
+				const newDiv = document.createElement("div");
+				newDiv.className = "input-group mb-3";
+
+				const newInput = document.createElement("input");
+				newInput.type = "text";
+				newInput.className = "form-control";
+				newInput.placeholder = "Name";
+				newInput.setAttribute("onchange", "repopulate()");
+
+				newDiv.appendChild(newInput);
+				parent.insertBefore(newDiv, row);
+				repopulate();
+			}
+
+			function newItem() {
+				const btn = document.getElementById("newItemBtn");
+				const row = btn.parentNode;
+				const parent = row.parentNode;
+
+				const newDiv = document.createElement("div");
+				newDiv.className = "row mb-3";
+
+				const nameCol = document.createElement("div");
+				nameCol.className = "col-8";
+
+				const nameInput = document.createElement("input");
+				nameInput.type = "text";
+				nameInput.className = "form-control";
+				nameInput.placeholder = "Item Name";
+				nameInput.setAttribute("onchange", "repopulate()");
+
+				const priceCol = document.createElement("div");
+				priceCol.className = "col-4";
+
+				const priceInputGrp = document.createElement("div");
+				priceInputGrp.className = "input-group";
+
+				const priceSymbol = document.createElement("span");
+				priceSymbol.className = "input-group-text";
+				priceSymbol.appendChild(document.createTextNode("$"));
+
+				const priceInput = document.createElement("input");
+				priceInput.type = "number";
+				priceInput.className = "form-control";
+				priceInput.placeholder = "Price";
+				priceInput.step = "0.01";
+				priceInput.setAttribute("onchange", "repopulate()");
+
+				nameCol.appendChild(nameInput);
+				priceInputGrp.appendChild(priceSymbol);
+				priceInputGrp.appendChild(priceInput);
+				priceCol.appendChild(priceInputGrp);
+
+				newDiv.appendChild(nameCol);
+				newDiv.appendChild(priceCol);
+
+				parent.insertBefore(newDiv, row);
+				repopulate();
+			}
+
+			function removePerson() {
+				const people = document.getElementById("people");
+				const lastPerson =
+					people.lastChild.previousElementSibling.previousElementSibling;
+				lastPerson.remove();
+				repopulate();
+			}
+
+			function removeItem() {
+				const items = document.getElementById("items");
+				const lastItem =
+					items.lastChild.previousElementSibling.previousElementSibling;
+				lastItem.remove();
+				repopulate();
+			}
+
+			function repopulate() {
+				const inputs = document.getElementsByTagName("input");
+				let persons = [];
+				let items = [];
+				for (input of inputs) {
+					if (input.placeholder === "Name" && input.value != "") {
+						persons.push(input.value);
+					} else if (input.placeholder === "Item Name" && input.value != "") {
+						let obj = { name: input.value };
+						items.push(obj);
+					} else if (input.placeholder === "Price" && input.value != "") {
+						items[items.length - 1].price = input.value;
+					}
+				}
+
+				console.log(persons);
+				console.log(items);
+
+				// Populate name list for 'Who paid first?'
+				var ddl = document.getElementById("ddl");
+				ddl.innerHTML = "";
+
+				let option = document.createElement("option");
+				option.selected = true;
+				option.textContent = "Select a name";
+				ddl.appendChild(option);
+
+				for (var i = 0; i < persons.length; i++) {
+					let person = persons[i];
+					let option = document.createElement("option");
+					option.value = person;
+					option.textContent = person;
+					ddl.appendChild(option);
+				}
+
+				// Populate table for 'Participation'
+				let table = document.getElementById("table");
+				table.innerHTML = "";
+
+				let tr = document.createElement("tr");
+				let th = document.createElement("th");
+				th.textContent = "#";
+				tr.appendChild(th);
+
+				for (item of items) {
+					let th = document.createElement("th");
+					th.textContent = item.name;
+					th.value = item.price;
+					tr.appendChild(th);
+				}
+				table.appendChild(tr);
+
+				for (person of persons) {
+					let tr = document.createElement("tr");
+					let td = document.createElement("td");
+					td.textContent = person;
+					tr.appendChild(td);
+					for (item of items) {
+						let td = document.createElement("td");
+						let input = document.createElement("input");
+						input.className = "form-check-input";
+						input.type = "checkbox";
+						td.appendChild(input);
+						tr.appendChild(td);
+					}
+					table.appendChild(tr);
+				}
+			}
+		</script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+			crossorigin="anonymous"
+		></script>
+	</body>
+</html>
