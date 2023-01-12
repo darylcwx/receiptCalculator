@@ -13,15 +13,12 @@
 		/>
 		<script src="https://kit.fontawesome.com/c821f5e68b.js" crossorigin="anonymous"></script>
 		<style>
-			.accordion {
-				margin: 20px 0;
-			}
 		</style>
 	</head>
 	<body onload="repopulate()">
-		<div class="container-fluid p-5 height bg-dark">
-			<div class="intro p-5 bg-primary text-white rounded">
-				<h1>Hello, world!</h1>
+		<div class="container-fluid px-0 pb-3 bg-dark">
+			<div class="intro p-3 text-white">
+				<h1 >Hello, world!</h1>
 				<p>
 					Welcome to my small little project inspired by having meals with
 					friends who drink together with friends who don't.
@@ -32,14 +29,14 @@
 					<ol>Simply include
 						<li>Names of your friends</li>
 						<li>Name and price of items</li>
-						<li>Participation</li>
 						<li>Who paid first</li>
+						<li>Participation</li>
 						<li>To include GST or not</li>
 						and let me handle the rest for you!
 					</ol>
 				</p>
-				<p>
-					Feel free to feedback me on Telegram @damnsope and hope this eases your receipt splitting life!
+				<p class="mb-0">
+					Feel free to feedback me on Telegram @damnsope. I hope this eases your receipt splitting life! &#128524;
 				</p>
 			</div>
 
@@ -272,7 +269,7 @@
 				style="white-space: pre"
 			></div>
 			<div class="text-center">
-				<button class="btn btn-primary w-50" onclick="calculate()">
+				<button class="btn btn-success w-50"  style="height: 50px;" onclick="calculate()">
 					Calculate!
 				</button>
 			</div>
