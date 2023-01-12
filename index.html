@@ -329,7 +329,7 @@
 				const priceInput = document.createElement("input");
 				priceInput.type = "number";
 				priceInput.className = "form-control";
-				priceInput.placeholder = "Price";
+				priceInput.placeholder = "0.00";
 				priceInput.step = "0.01";
 				priceInput.setAttribute("onchange", "repopulate()");
 
@@ -373,10 +373,15 @@
 					} else if (input.placeholder === "Item Name" && input.value != "") {
 						let obj = { 'name': input.value };
 						items.push(obj);
-					} else if (input.placeholder === "Price" && input.value != "") {
-						items[items.length - 1].price = input.value;
+					} else if (input.placeholder == "0.00" && input.value != "") {
+						if (input.value == ''){
+							items[items.length - 1].price = null;
+						} else {
+							items[items.length - 1].price = input.value;
+						}
 					}
 				}
+
 				// persons = [ 'alan', 'berry' ]
 				// items = [{ name: 'apple', price: '1.4' },{ name: 'banana', price: '2' }]
 				
@@ -462,7 +467,6 @@
 				}
 
 				// items
-				console.log(items)
 				if (items.length == 0){
 					errorMsg += "Please input at least one item.\n"
 				} else {
@@ -545,7 +549,6 @@
 							personAmt[person] = (amt * 1.08).toFixed(2);
 						}
 					}
-					console.log(personAmt)
 
 					let total = 0;
 					for (person in personAmt) {
@@ -571,7 +574,6 @@
 
 					let tbody = document.createElement("tbody");
 					for (person in personAmt) {
-						console.log(person);
 						let tr = document.createElement("tr");
 						let name = document.createElement("td");
 						name.textContent = person;
@@ -595,8 +597,12 @@
 					result.appendChild(tbody);
 				}
 				let results = document.getElementById("accordionTwo")
-				results.className += "visible";
-				document.getElementById("accordionBtn").click();
+				results.classList.remove("invisible");
+				
+				let btn = document.getElementById("accordionBtn")
+				if (btn.ariaExpanded == "false"){
+					btn.click();
+				}
 			}
 		</script>
 		<script
