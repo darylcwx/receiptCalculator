@@ -133,7 +133,7 @@
 						<div class="accordion-body" id="items">
 							<p>Please enter all items and their respective prices below.</p>
 							<div class="row mb-3">
-								<div class="col-8">
+								<div class="col-7">
 									<input
 										type="text"
 										class="form-control"
@@ -141,7 +141,7 @@
 										onchange="repopulate()"
 									/>
 								</div>
-								<div class="col-4">
+								<div class="col-5">
 									<div class="input-group">
 										<span class="input-group-text">$</span>
 										<input
@@ -308,7 +308,7 @@
 				newDiv.className = "row mb-3";
 
 				const nameCol = document.createElement("div");
-				nameCol.className = "col-8";
+				nameCol.className = "col-7";
 
 				const nameInput = document.createElement("input");
 				nameInput.type = "text";
@@ -317,7 +317,7 @@
 				nameInput.setAttribute("onchange", "repopulate()");
 
 				const priceCol = document.createElement("div");
-				priceCol.className = "col-4";
+				priceCol.className = "col-5";
 
 				const priceInputGrp = document.createElement("div");
 				priceInputGrp.className = "input-group";
