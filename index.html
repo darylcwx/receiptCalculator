@@ -4,16 +4,17 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Receipt Calculator</title>
+		<title>Receipt Calculator V1.0</title>
 		<link
 			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 			rel="stylesheet"
 			integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 			crossorigin="anonymous"
 		/>
+		<script src="https://kit.fontawesome.com/c821f5e68b.js" crossorigin="anonymous"></script>
 		<style>
 			.accordion {
-				margin: 40px 0;
+				margin: 20px 0;
 			}
 		</style>
 	</head>
@@ -21,25 +22,39 @@
 		<div class="container-fluid p-5 height bg-dark">
 			<div class="intro p-5 bg-primary text-white rounded">
 				<h1>Hello, world!</h1>
-				This only works if one person paid for everything first. <br />
-				Simply include <br />
-				1. Names of your friends <br />
-				2. Name and price of items <br />
-				3. Participation <br />
-				4. Who paid first and whether or not GST was included <br />
-				and let us handle the rest for you!
+				<p>
+					Welcome to my small little project inspired by having meals with
+					friends who drink together with friends who don't.
+				</p>
+				<p>
+					This only works if one person paid for everything first.
+					
+					<ol>Simply include
+						<li>Names of your friends</li>
+						<li>Name and price of items</li>
+						<li>Participation</li>
+						<li>Who paid first</li>
+						<li>To include GST or not</li>
+						and let me handle the rest for you!
+					</ol>
+				</p>
+				<p>
+					Feel free to feedback me on Telegram @damnsope and hope this eases your receipt splitting life!
+				</p>
 			</div>
 
 			<!-- For OCR in future -->
-			<div class="mb-3">
+			<!-- <div class="mb-3">
 				<label for="formFile" class="form-label"
 					>Default file input example</label
 				>
 				<input class="form-control" type="file" id="formFile" />
-			</div>
+			</div> -->
 
 			<!-- Manual entry for now -->
-			<div class="accordion" id="accordionExample">
+			
+			<div class="accordion" id="accordionOne">
+				<!-- People Involved -->
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="headingOne">
 						<button
@@ -50,14 +65,15 @@
 							aria-expanded="true"
 							aria-controls="collapseOne"
 						>
-							People Involved
+						People Involved&nbsp;&nbsp;
+						<i class="fa-solid fa-users"></i>
 						</button>
 					</h2>
 					<div
 						id="collapseOne"
 						class="accordion-collapse collapse show"
 						aria-labelledby="headingOne"
-						data-bs-parent="#accordionExample"
+						data-bs-parent="#accordionOne"
 					>
 						<div class="accordion-body" id="people">
 							<div class="input-group mb-3">
@@ -95,27 +111,26 @@
 						</div>
 					</div>
 				</div>
-			</div>
-
-			<div class="accordion" id="accordionExample">
+				<!-- Items -->
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="headingTwo">
 						<button
-							class="accordion-button"
+							class="accordion-button collapsed"
 							type="button"
 							data-bs-toggle="collapse"
 							data-bs-target="#collapseTwo"
 							aria-expanded="true"
 							aria-controls="collapseTwo"
 						>
-							Items
-						</button>
+						Items &nbsp;&nbsp;
+						<i class="fa-solid fa-burger"></i>&nbsp;
+						<i class="fa-solid fa-pizza-slice"></i>&nbsp;
+						<i class="fa-solid fa-beer-mug-empty"></i>
 					</h2>
 					<div
 						id="collapseTwo"
-						class="accordion-collapse collapse show"
+						class="accordion-collapse collapse"
 						aria-labelledby="headingTwo"
-						data-bs-parent="#accordionExample"
 					>
 						<div class="accordion-body" id="items">
 							<div class="row mb-3">
@@ -159,64 +174,61 @@
 						</div>
 					</div>
 				</div>
-			</div>
-
-			<div class="accordion" id="accordionExample">
+			<!-- Who paid first? -->
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="headingThree">
 						<button
-							class="accordion-button"
+							class="accordion-button collapsed"
 							type="button"
 							data-bs-toggle="collapse"
 							data-bs-target="#collapseThree"
-							aria-expanded="true"
+							aria-expanded="false"
 							aria-controls="collapseThree"
 						>
-							Who paid first?
+							Who paid first?&nbsp;&nbsp;
+							<i class="fa-regular fa-credit-card"></i>
+
 						</button>
 					</h2>
 					<div
 						id="collapseThree"
-						class="accordion-collapse collapse show"
+						class="accordion-collapse collapse"
 						aria-labelledby="headingThree"
-						data-bs-parent="#accordionExample"
 					>
-						<div class="accordion-body" id="items">
+						<div class="accordion-body">
 							<div class="row align-items-center">
 								<div class="col-6">
-									<select class="form-select" id="ddl"></select>
+									<select class="form-select" id="paidFirst"></select>
 								</div>
 								<div class="col-6 text-center">
 									<input id="gst" class="form-check-input" type="checkbox" />
-									<label class="form-check-label" for="gst">Add 7% GST?</label>
+									<label class="form-check-label" for="gst">Add 8% GST?</label>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-
-			<div class="accordion" id="accordionExample">
+			<!-- Participation -->
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="headingFour">
 						<button
-							class="accordion-button"
+							class="accordion-button collapsed"
 							type="button"
 							data-bs-toggle="collapse"
 							data-bs-target="#collapseFour"
-							aria-expanded="true"
+							aria-expanded="false"
 							aria-controls="collapseFour"
 						>
-							Participation
+							Participation&nbsp;&nbsp;
+							<i class="fa-solid fa-utensils"></i>
 						</button>
 					</h2>
 					<div
 						id="collapseFour"
-						class="accordion-collapse collapse show"
+						class="accordion-collapse collapse"
 						aria-labelledby="headingFour"
-						data-bs-parent="#accordionExample"
 					>
-						<div class="accordion-body" id="items">
+						<div class="accordion-body">
 							<div class="table-responsive">
 								<table class="table" id="table"></table>
 							</div>
@@ -224,30 +236,49 @@
 					</div>
 				</div>
 			</div>
+			<div class="accordion invisible" id="accordionTwo">
+			<!-- Results -->
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="headingFive">
+						<button
+							class="accordion-button collapsed"
+							type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#collapseFive"
+							aria-expanded="false"
+							aria-controls="collapseFive"
+							id="accordionBtn"
+						>
+							Results
+						</button>
+					</h2>
+					<div
+						id="collapseFive"
+						class="accordion-collapse collapse"
+						aria-labelledby="headingFive"
+						data-bs-parent="#accordionTwo"
+					>
+						<div class="accordion-body">
+							<div class="table-responsive">
+								<table class="table" id="result"></table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div
+				id="errorMsg"
+				class="text-center text-danger my-3"
+				style="white-space: pre"
+			></div>
 			<div class="text-center">
-				<button class="btn btn-primary w-50">Calculate!</button>
+				<button class="btn btn-primary w-50" onclick="calculate()">
+					Calculate!
+				</button>
 			</div>
 		</div>
 		<script>
-			// var people = document.getElementById("people");
-			// var persons = people.childNodes;
-			// var lastPerson = persons[persons.length - 4];
-			// var lastPersonInput = lastPerson.childNodes[1];
-			// console.log(lastPerson);
-			// console.log(lastPersonInput);
-			// lastPersonInput.addEventListener("keyup", newPerson(people, lastPerson));
-
-			// function newPerson(people, lastPerson) {
-			// 	const newDiv = document.createElement("div");
-			// 	newDiv.className = "input-group mb-3";
-
-			// 	const newInput = document.createElement("input");
-			// 	newInput.type = "text";
-			// 	newInput.className = "form-control";
-
-			// 	newDiv.appendChild(newInput);
-			// 	people.appendChild(newDiv);
-			// }
+			// Add person button
 			function newPerson() {
 				const btn = document.getElementById("newPersonBtn");
 				const row = btn.parentNode;
@@ -265,7 +296,7 @@
 				parent.insertBefore(newDiv, row);
 				repopulate();
 			}
-
+			// Add item button
 			function newItem() {
 				const btn = document.getElementById("newItemBtn");
 				const row = btn.parentNode;
@@ -311,7 +342,7 @@
 				parent.insertBefore(newDiv, row);
 				repopulate();
 			}
-
+			// remove person button
 			function removePerson() {
 				const people = document.getElementById("people");
 				const lastPerson =
@@ -319,7 +350,7 @@
 				lastPerson.remove();
 				repopulate();
 			}
-
+			// remove item button
 			function removeItem() {
 				const items = document.getElementById("items");
 				const lastItem =
@@ -327,32 +358,36 @@
 				lastItem.remove();
 				repopulate();
 			}
-
+			// repopulate dropdownlist and checkboxes
+			var items = []
+			var persons = []
 			function repopulate() {
 				const inputs = document.getElementsByTagName("input");
-				let persons = [];
-				let items = [];
+				persons = [];
+				items = [];
 				for (input of inputs) {
 					if (input.placeholder === "Name" && input.value != "") {
 						persons.push(input.value);
 					} else if (input.placeholder === "Item Name" && input.value != "") {
-						let obj = { name: input.value };
+						let obj = { 'name': input.value };
 						items.push(obj);
 					} else if (input.placeholder === "Price" && input.value != "") {
 						items[items.length - 1].price = input.value;
 					}
 				}
-
-				console.log(persons);
-				console.log(items);
-
-				// Populate name list for 'Who paid first?'
-				var ddl = document.getElementById("ddl");
+				// persons = [ 'alan', 'berry' ]
+				// items = [{ name: 'apple', price: '1.4' },{ name: 'banana', price: '2' }]
+				
+				// populate name list for 'Who paid first?'
+				var ddl = document.getElementById("paidFirst");
+				let selected = ddl.value;
 				ddl.innerHTML = "";
 
+				// select a name
 				let option = document.createElement("option");
 				option.selected = true;
 				option.textContent = "Select a name";
+				option.value = 0;
 				ddl.appendChild(option);
 
 				for (var i = 0; i < persons.length; i++) {
@@ -360,16 +395,29 @@
 					let option = document.createElement("option");
 					option.value = person;
 					option.textContent = person;
+					// retain selection
+					if (selected == option.value){
+						option.selected = true
+					}
 					ddl.appendChild(option);
 				}
 
-				// Populate table for 'Participation'
+				// populate table for 'Participation' and retain checked checkboxes
+				let allChkbox = document.querySelectorAll("input[type=checkbox]:checked");
+				let retained = []
+				for (chkbox of allChkbox) {
+					if (chkbox.id != "gst") {
+						retained.push(chkbox.value)
+					}
+				}
 				let table = document.getElementById("table");
 				table.innerHTML = "";
 
+				// header row
+				let thead = document.createElement("thead");
 				let tr = document.createElement("tr");
 				let th = document.createElement("th");
-				th.textContent = "#";
+				th.textContent = "Name \\ Item";
 				tr.appendChild(th);
 
 				for (item of items) {
@@ -378,8 +426,11 @@
 					th.value = item.price;
 					tr.appendChild(th);
 				}
-				table.appendChild(tr);
+				thead.appendChild(tr)
+				table.appendChild(thead);
 
+				let tbody = document.createElement("tbody");
+				// each person's row
 				for (person of persons) {
 					let tr = document.createElement("tr");
 					let td = document.createElement("td");
@@ -390,11 +441,164 @@
 						let input = document.createElement("input");
 						input.className = "form-check-input";
 						input.type = "checkbox";
+						input.value = person + ":" + item.name;
+						if (retained.includes(input.value)){
+							input.checked = true;
+						}
 						td.appendChild(input);
 						tr.appendChild(td);
 					}
-					table.appendChild(tr);
+					tbody.appendChild(tr)
 				}
+				table.appendChild(tbody);
+			}
+
+			function calculate() {
+				document.getElementById("errorMsg").textContent = "";
+				let errorMsg = "";
+				let pass = false;
+				
+				// names
+				if (persons.length == 0){
+					errorMsg += "Please input at least one name.\n"
+				}
+
+				// items
+				console.log(items)
+				if (items.length == 0){
+					errorMsg += "Please input at least one item.\n"
+				} else {
+					for (item of items){
+						if (item.name == null || item.price == null){
+							errorMsg += "Please input the item's price.\n"
+						}
+					}
+				}
+
+				// no point running if names and items empty
+				if (errorMsg != "") {
+					document.getElementById("errorMsg").textContent = errorMsg;
+					return;
+				}
+
+				// paid first
+				let paidFirst = document.getElementById("paidFirst").value;
+				if (paidFirst == 0) {
+					errorMsg += "Please select the person who paid first.\n";
+				}
+
+				// participation
+				let allChkbox = document.querySelectorAll("input[type=checkbox]");
+				for (chkbox of allChkbox) {
+					if (chkbox.id != "gst" && chkbox.checked == true) {
+						pass = true;
+					}
+				}
+				if (pass == false) {
+					errorMsg += "Please input the participation of each member.\n";
+				}
+
+				//validation
+				if (errorMsg != "") {
+					document.getElementById("errorMsg").textContent = errorMsg;
+					return;
+				} else {
+					let itemPax = []; // [ apple: 2, banana: 1]
+					let personItems = []; // [{ alan: apple, banana }, { barry: apple }]
+					let allChkbox = document.querySelectorAll("input[type=checkbox]:checked");
+					for (chkbox of allChkbox) {
+						if (chkbox.id != "gst") {
+							let nameItem = chkbox.value.split(":");
+							let name = nameItem[0];
+							let item = nameItem[1];
+							if (!(item in itemPax)) {
+								itemPax[item] = 1;
+							} else {
+								itemPax[item] += 1;
+							}
+							if (!(name in personItems)) {
+								personItems[name] = [item];
+							} else {
+								personItems[name].push(item);
+							}
+						}
+					}
+					
+					let itemPricePerPax = []; // [ apple: 0.7, banana: 2 ] 
+					for (item in itemPax) {
+						for (it of items) {
+							if (item == it.name) {
+								let splitPrice = it.price / itemPax[item];
+								itemPricePerPax[item] = splitPrice;
+							}
+						}
+					}
+					let gst = document.getElementById("gst").checked;
+					let personAmt = []; // [ alan: 2.70, barry: 0.70 ]
+					for (person in personItems) {
+						let amt = 0;
+						let items = personItems[person];
+						for (item of items) {
+							amt += itemPricePerPax[item];
+						}
+						if (gst == false) {
+							personAmt[person] = amt.toFixed(2);
+						} else {
+							personAmt[person] = (amt * 1.08).toFixed(2);
+						}
+					}
+					console.log(personAmt)
+
+					let total = 0;
+					for (person in personAmt) {
+						total += parseFloat(personAmt[person]);
+					}
+
+					// populate results
+					let result = document.getElementById("result");
+					result.innerHTML = "";
+					let thead = document.createElement("thead");
+					let tr = document.createElement("tr");
+					let name = document.createElement("th");
+					let amt = document.createElement("th");
+					let owe = document.createElement("th");
+					name.textContent = "Name \\ Item";
+					amt.textContent = "Share";
+					owe.textContent = "Transfer / Receive";
+					tr.appendChild(name);
+					tr.appendChild(amt);
+					tr.appendChild(owe);
+					thead.appendChild(tr)
+					result.appendChild(thead);
+
+					let tbody = document.createElement("tbody");
+					for (person in personAmt) {
+						console.log(person);
+						let tr = document.createElement("tr");
+						let name = document.createElement("td");
+						name.textContent = person;
+						tr.appendChild(name);
+
+						let amount = document.createElement("td");
+						let amt = personAmt[person];
+						amount.textContent = "$" + amt;
+						tr.appendChild(amount);
+
+						let owe = document.createElement("td");
+						if (person != paidFirst) {
+							owe.textContent = "Transfer $" + amt;
+						} else {
+							owe.textContent = "Receive $" + (total - amt).toFixed(2);
+						}
+						tr.appendChild(owe);
+
+						tbody.appendChild(tr);
+					}
+					result.appendChild(tbody);
+				}
+				let results = document.getElementById("accordionTwo")
+				results.className += "visible";
+				document.getElementById("accordionBtn").click();
 			}
 		</script>
 		<script
