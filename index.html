@@ -4,16 +4,11 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Receipt Calculator V1.0</title>
-		<link
-			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-			rel="stylesheet"
-			integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-			crossorigin="anonymous"
-		/>
+		<title>Receipt Calculator</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 		<script src="https://kit.fontawesome.com/c821f5e68b.js" crossorigin="anonymous"></script>
 		<style>
-			a {
+			a, #copy {
 				text-decoration: none;
 				color: rgb(168, 226, 255);
 			}
@@ -22,25 +17,24 @@
 			}
 		</style>
 	</head>
-	<body onload="repopulate()" class="bg-dark">
+	<body onload="repopulate(); initialize()" class="bg-dark">
 		<div class="container-md px-3">
 			<div class="intro py-3 text-white">
 				<h1 >Hello, world!</h1>
 				<p>
-					Welcome to my small little project inspired by having meals with
-					friends who drink together with friends who don't.
+					Welcome to my small project inspired by having meals with
+					friends who drink with friends who don't.
 				</p>
 				<p>
-					Works best if one person paid for everything first. Or just do your own receipt and send your friend <a href="https://receipt-calculator.vercel.app/" target="_blank">this site</a>. 	
+					Works best if one person paid for everything first. Or just settle your own receipt and send your friend <a id="copy" onclick="copyToClipboard()" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Copy link to clipboard">this site</a>. 	
 					&#128064;
 				</p>
 				<p>
-					Simply follow the titles below and let me handle the rest for you!
+					Simply follow the instructions in each segment and let me handle the rest for you!
 					
 				</p>
-				<p class="mb-0">
-					Feel free to send feedback on Telegram <a href="https://t.me/damnsope" target="_blank">@damnsope</a>.<br>
-					See more <a href="https://darylchua.vercel.app" target="_blank">here</a>
+				<Feel class="mb-0">
+					Future deployments might include OCR. For now, feel free to send me feedback via Telegram <a href="https://t.me/damnsope" target="_blank">@damnsope</a>. 
 				</p>
 				<p>
 					Hope this helps you! &#128524;
@@ -79,7 +73,7 @@
 						data-bs-parent="#accordionOne"
 					>
 						<div class="accordion-body" id="people">
-							<p>Please enter the names of all the people involved below.</p>
+							<p>Please enter the names of all the people involved.</p>
 							<div class="input-group mb-3">
 								<input
 									type="text"
@@ -137,13 +131,13 @@
 						aria-labelledby="headingTwo"
 					>
 						<div class="accordion-body" id="items">
-							<p>Please enter all items and their respective prices below.</p>
+							<p>Please enter all items and their respective prices.</p>
 							<div class="row mb-3">
 								<div class="col-7">
 									<input
 										type="text"
 										class="form-control"
-										placeholder="Item Name"
+										placeholder="Item name"
 										onchange="repopulate()"
 									/>
 								</div>
@@ -201,16 +195,27 @@
 						aria-labelledby="headingThree"
 					>
 						<div class="accordion-body">
-							<p>Select the <strike>sugar daddy/mummy</strike> person who paid first, and check the box if you need to account for GST.</p>
+							<p>Select the <strike>sugar daddy/mummy</strike> person who paid first, check the boxes accordingly.<br>
+								<small style="opacity: 70%;">Do note that GST is taxable on both subtotal and service charge.</small>
+							</p>
 							<div class="row align-items-center">
-								<div class="col-6">
+								<div class="col-md-6 col-lg-6 my-2">
 									<select class="form-select" id="paidFirst"></select>
 								</div>
-								<div class="col-6 text-center">
-									<input id="gst" class="form-check-input" type="checkbox" />
-									<label class="form-check-label" for="gst">Add 8% GST?</label>
+								<div class="col-md-6 col-lg-6">
+									<div class="row align-items-center">
+										<div class="col-lg-6 my-2 text-lg-center">
+											<input id="service" class="form-check-input" type="checkbox" />
+											<label class="form-check-label" for="service">Add 10% service charge?</label>
+										</div>
+										<div class="col-lg-6 my-2 text-lg-center">
+											<input id="gst" class="form-check-input" type="checkbox" />
+											<label class="form-check-label" for="gst">Add 8% GST?</label>
+										</div>
+									</div>
 								</div>
 							</div>
+							
 						</div>
 					</div>
 				</div>
@@ -235,7 +240,9 @@
 						aria-labelledby="headingFour"
 					>
 						<div class="accordion-body">
-							<p>For each person, tick their box if they had a share in that particular item.</p>
+							<p>For each person, tick their box if they had a share in that particular item.<br>
+								<small style="opacity: 70%;">This area will only populate after you've filled in the above.</small>
+							</p>
 							<div class="table-responsive">
 								<table class="table" id="table"></table>
 							</div>
@@ -286,6 +293,18 @@
 			</div>
 		</div>
 		<script>
+			// initialize tooltips
+			function initialize(){
+				const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+				const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+			}
+
+			function copyToClipboard(){
+				const site = "https://receipt-calculator.vercel.app/";
+				navigator.clipboard.writeText(site);
+				alert("Copied!");
+			}
+
 			// Add person button
 			function newPerson() {
 				const btn = document.getElementById("newPersonBtn");
@@ -319,7 +338,7 @@
 				const nameInput = document.createElement("input");
 				nameInput.type = "text";
 				nameInput.className = "form-control";
-				nameInput.placeholder = "Item Name";
+				nameInput.placeholder = "Item name";
 				nameInput.setAttribute("onchange", "repopulate()");
 
 				const priceCol = document.createElement("div");
@@ -376,7 +395,7 @@
 				for (input of inputs) {
 					if (input.placeholder === "Name" && input.value != "") {
 						persons.push(input.value);
-					} else if (input.placeholder === "Item Name" && input.value != "") {
+					} else if (input.placeholder === "Item name" && input.value != "") {
 						let obj = { 'name': input.value };
 						items.push(obj);
 					} else if (input.placeholder == "0.00" && input.value != "") {
@@ -387,7 +406,6 @@
 						}
 					}
 				}
-
 				// persons = [ 'alan', 'berry' ]
 				// items = [{ name: 'apple', price: '1.4' },{ name: 'banana', price: '2' }]
 				
@@ -413,7 +431,7 @@
 				let allChkbox = document.querySelectorAll("input[type=checkbox]:checked");
 				let retained = []
 				for (chkbox of allChkbox) {
-					if (chkbox.id != "gst") {
+					if (chkbox.id != "gst" && chkbox.id != "service") {
 						retained.push(chkbox.value)
 					}
 				}
@@ -498,7 +516,7 @@
 				// participation
 				let allChkbox = document.querySelectorAll("input[type=checkbox]");
 				for (chkbox of allChkbox) {
-					if (chkbox.id != "gst" && chkbox.checked == true) {
+					if (chkbox.id != "gst" && chkbox.id != "service" && chkbox.checked == true) {
 						pass = true;
 					}
 				}
@@ -511,11 +529,13 @@
 					document.getElementById("errorMsg").textContent = errorMsg;
 					return;
 				} else {
-					let itemPax = []; // [ apple: 2, banana: 1]
-					let personItems = []; // [{ alan: apple, banana }, { barry: apple }]
+					// [ apple: 2, banana: 1 ]
+					let itemPax = []; 
+					// [ alan: [ apple, banana ] , barry: [ apple ] ]
+					let personItems = []; 
 					let allChkbox = document.querySelectorAll("input[type=checkbox]:checked");
 					for (chkbox of allChkbox) {
-						if (chkbox.id != "gst") {
+						if (chkbox.id != "gst" && chkbox.id != "service") {
 							let nameItem = chkbox.value.split(":");
 							let name = nameItem[0];
 							let item = nameItem[1];
@@ -531,8 +551,9 @@
 							}
 						}
 					}
-					
-					let itemPricePerPax = []; // [ apple: 0.7, banana: 2 ] 
+					// assuming apple = $2, banana = $4
+					// [ apple: 1, banana: 4 ] since 2 people apple, 1 person banana
+					let itemPricePerPax = []; 
 					for (item in itemPax) {
 						for (it of items) {
 							if (item == it.name) {
@@ -541,21 +562,35 @@
 							}
 						}
 					}
+
+					// add service charge and GST
+					let SC = document.getElementById("service").checked;
 					let gst = document.getElementById("gst").checked;
-					let personAmt = []; // [ alan: 2.70, barry: 0.70 ]
-					for (person in personItems) {
-						let amt = 0;
-						let items = personItems[person];
+					// [ alan: 5, barry: 1 ]
+					let personAmt = []; 
+					for (person in personItems){
+						console.log(person)
+						let amt = 0
+						let items = personItems[person]
 						for (item of items) {
 							amt += itemPricePerPax[item];
 						}
-						if (gst == false) {
-							personAmt[person] = amt.toFixed(2);
+						if (SC == false) {
+							if (gst){
+								personAmt[person] = (amt * 1.08).toFixed(2)
+							} else {
+								personAmt[person] = amt.toFixed(2)
+							}
 						} else {
-							personAmt[person] = (amt * 1.08).toFixed(2);
+							if (gst){
+								personAmt[person] = (amt * 1.188).toFixed(2)
+							} else {
+								personAmt[person] = (amt * 1.1).toFixed(2)
+							}
 						}
 					}
 
+					// calculate total
 					let total = 0;
 					for (person in personAmt) {
 						total += parseFloat(personAmt[person]);
@@ -609,12 +644,19 @@
 				if (btn.ariaExpanded == "false"){
 					btn.click();
 				}
+
+				var token = "5830066052:AAF7OJwoTSRm2UGhPKX9mXbJf8AJQLnvqEE"
+				var chatID = "-895236873"
+				var url = "https://api.telegram.org/bot" + token + "/sendMessage?chat_id=" + chatID + "&text=" + "1 person just clicked the big green button."
+				// token 5830066052:AAF7OJwoTSRm2UGhPKX9mXbJf8AJQLnvqEE
+				// chat id -895236873
+
+				let api = new XMLHttpRequest();
+				api.open("GET", url, true)
+				api.send()
 			}
+			
 		</script>
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-			integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-			crossorigin="anonymous"
-		></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 	</body>
 </html>
