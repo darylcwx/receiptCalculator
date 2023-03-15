@@ -645,15 +645,14 @@
 					btn.click();
 				}
 
+				// info
 				var token = "5830066052:AAF7OJwoTSRm2UGhPKX9mXbJf8AJQLnvqEE"
 				var chatID = "-895236873"
-				var url = "https://api.telegram.org/bot" + token + "/sendMessage?chat_id=" + chatID + "&text=" + "1 person just clicked the big green button."
-				// token 5830066052:AAF7OJwoTSRm2UGhPKX9mXbJf8AJQLnvqEE
-				// chat id -895236873
-
+				var text = `1 person just clicked the big green button.\n\n`
+				var url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatID}&text=${text}`
 				let api = new XMLHttpRequest();
-				api.open("GET", url, true)
-				api.send()
+				//api.open("GET", url, true)
+				//api.send()
 			}
 			
 		</script>
