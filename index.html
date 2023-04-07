@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+d<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
@@ -72,38 +72,38 @@
 						aria-labelledby="headingOne"
 						data-bs-parent="#accordionOne"
 					>
-						<div class="accordion-body" id="people">
+						<div class="accordion-body">
+							
 							<p>Please enter the names of all the people involved.</p>
-							<div class="input-group mb-3">
-								<input
-									type="text"
-									class="form-control"
-									placeholder="Name"
-									onchange="repopulate()"
-								/>
+							<div id="people">
+								<div class="input-group mb-3">
+									<input
+										type="text"
+										class="form-control"
+										placeholder="Name"
+										onkeyup="repopulate()"
+										oninput="repopulate()"
+									/>
+									<button class="btn btn-outline-secondary" onclick="removePerson()" type="button"><i class="fa-solid fa-minus"></i></button>
+								</div>
+								<div class="input-group mb-3">
+									<input
+										type="text"
+										class="form-control"
+										placeholder="Name"
+										onkeyup="repopulate()"
+										oninput="repopulate()"
+									/>
+									<button class="btn btn-outline-secondary" onclick="removePerson()" type="button"><i class="fa-solid fa-minus"></i></button>
+								</div>
 							</div>
-							<div class="input-group mb-3">
-								<input
-									type="text"
-									class="form-control"
-									placeholder="Name"
-									onchange="repopulate()"
-								/>
-							</div>
-							<div class="d-flex justify-content-between">
+							<div class="d-flex justify-content-end">
 								<button
 									id="newPersonBtn"
-									class="btn btn-primary"
+									class="btn btn-primary w-25"
 									onclick="newPerson()"
 								>
 									Add person
-								</button>
-								<button
-									id="removePersonBtn"
-									class="btn btn-danger"
-									onclick="removePerson()"
-								>
-									Remove last person
 								</button>
 							</div>
 						</div>
@@ -130,46 +130,134 @@
 						class="accordion-collapse collapse"
 						aria-labelledby="headingTwo"
 					>
-						<div class="accordion-body" id="items">
-							<p>Please enter all items and their respective prices.</p>
-							<div class="row mb-3">
-								<div class="col-7">
-									<input
-										type="text"
-										class="form-control"
-										placeholder="Item name"
-										onchange="repopulate()"
-									/>
+						<div class="accordion-body">
+							<p>Please enter all items and their prices before service charge and GST.<br>
+								<small style="opacity: 70%;">Please refrain from repeating the names.</small>
+							</p>
+							<div id="items">
+								<div class="row mb-3">
+									<div class="col-7">
+										<input
+											type="text"
+											class="form-control"
+											placeholder="Item name"
+											onkeyup="repopulate()"
+											oninput="repopulate()"
+										/>
+										
+									</div>
+									<div class="col-5">
+										<div class="input-group">
+											<span class="input-group-text">$</span>
+											<input
+												type="number"
+												step="0.01"
+												class="form-control"
+												placeholder="0.00"
+												onkeyup="repopulate()"
+												oninput="repopulate()"
+												onkeydown="return event.keyCode !== 69 && event.keyCode !== 189"
+												disabled
+											/>
+											<button class="btn btn-outline-secondary" onclick="removeItem()" type="button"><i class="fa-solid fa-minus"></i></button>
+
+										</div>
+										
+									</div>
+								</div>
+							</div>
+							<div class="d-flex justify-content-end">
+								<button
+									id="newItemBtn"
+									class="btn btn-primary w-25"
+									onclick="newItem()"
+								>
+									Add item
+								</button>
+							</div>
+							<div class="row mb-1 mt-5">
+								<div class="col-7 d-flex justify-content-end align-items-center">
+									<b>Subtotal</b>
 								</div>
 								<div class="col-5">
 									<div class="input-group">
 										<span class="input-group-text">$</span>
 										<input
+											id="subtotal"
 											type="number"
 											step="0.01"
 											class="form-control"
-											placeholder="0.00"
 											onchange="repopulate()"
+											oninput="repopulate()"
+											disabled
 										/>
 									</div>
 								</div>
 							</div>
-							<div class="d-flex justify-content-between">
-								<button
-									id="newItemBtn"
-									class="btn btn-primary"
-									onclick="newItem()"
-								>
-									Add item
-								</button>
-								<button
-									id="removeItemBtn"
-									class="btn btn-danger"
-									onclick="removeItem()"
-								>
-									Remove last item
-								</button>
+							<div class="row mb-1">
+								<div class="col-7 d-flex justify-content-end align-items-center">
+									<b>10% Service Charge</b>
+									<input id="service" class="form-check-input ms-2" type="checkbox" checked onclick="repopulate()"/>
+									
+								</div>
+								<div class="col-5">
+									<div class="input-group">
+										<span class="input-group-text">$</span>
+										<input
+											id="svcField"
+											type="number"
+											step="0.01"
+											class="form-control"
+											onchange="repopulate()"
+											oninput="repopulate()"
+											disabled
+										/>
+									</div>
+								</div>
 							</div>
+							<div class="row mb-1">
+								<div class="col-7 d-flex justify-content-end align-items-center">
+									
+									<b>8% GST</b>
+									<input id="gst" class="form-check-input ms-2" type="checkbox" checked onclick="repopulate()"/>
+								</div>
+								<div class="col-5">
+									<div class="input-group">
+										<span class="input-group-text">$</span>
+										<input
+											id="gstField"
+											type="number"
+											step="0.01"
+											class="form-control"
+											onchange="repopulate()"
+											oninput="repopulate()"
+											disabled
+										/>
+									</div>
+								</div>
+							</div>
+							<div class="row mb-3">
+								<div class="col-7 d-flex justify-content-end align-items-center">
+									<b>Grand Total</b>
+								</div>
+								<div class="col-5">
+									<div class="input-group">
+										<span class="input-group-text">$</span>
+										<input
+											id="total"
+											type="number"
+											step="0.01"
+											class="form-control"
+											onchange="repopulate()"
+											oninput="repopulate()"
+											disabled
+										/>
+									</div>
+								</div>
+							</div>
+
+
+							
 						</div>
 					</div>
 				</div>
@@ -201,18 +289,6 @@
 							<div class="row align-items-center">
 								<div class="col-md-6 col-lg-6 my-2">
 									<select class="form-select" id="paidFirst"></select>
-								</div>
-								<div class="col-md-6 col-lg-6">
-									<div class="row align-items-center">
-										<div class="col-lg-6 my-2 text-lg-center">
-											<input id="service" class="form-check-input" type="checkbox" />
-											<label class="form-check-label" for="service">Add 10% service charge?</label>
-										</div>
-										<div class="col-lg-6 my-2 text-lg-center">
-											<input id="gst" class="form-check-input" type="checkbox" />
-											<label class="form-check-label" for="gst">Add 8% GST?</label>
-										</div>
-									</div>
 								</div>
 							</div>
 							
@@ -250,7 +326,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="accordion mt-3 invisible" id="accordionTwo">
+			<div class="accordion mt-3" id="accordionTwo">
 			<!-- Results -->
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="headingFive">
@@ -263,7 +339,8 @@
 							aria-controls="collapseFive"
 							id="accordionBtn"
 						>
-							Results
+							Click me to see the results!&nbsp;&nbsp;
+							<i class="fa-solid fa-money-bill-transfer"></i>
 						</button>
 					</h2>
 					<div
@@ -286,11 +363,6 @@
 				style="white-space: pre"
 			></div>
 
-			<div class="text-center mb-3">
-				<button class="btn btn-success w-50"  style="height: 50px;" onclick="calculate()">
-					Calculate!
-				</button>
-			</div>
 		</div>
 		<script>
 			// initialize tooltips
@@ -304,118 +376,125 @@
 				navigator.clipboard.writeText(site);
 				alert("Copied!");
 			}
-
+			var peopleCount = 2
+			var itemCount = 1
 			// Add person button
 			function newPerson() {
-				const btn = document.getElementById("newPersonBtn");
-				const row = btn.parentNode;
-				const parent = row.parentNode;
-				const newDiv = document.createElement("div");
-				newDiv.className = "input-group mb-3";
-
-				const newInput = document.createElement("input");
-				newInput.type = "text";
-				newInput.className = "form-control";
-				newInput.placeholder = "Name";
-				newInput.setAttribute("onchange", "repopulate()");
-
-				newDiv.appendChild(newInput);
-				parent.insertBefore(newDiv, row);
+				const parent = document.getElementById("people");
+				const html = `
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" placeholder="Name" onkeyup="repopulate()" oninput="repopulate()">
+						<button class="btn btn-outline-secondary" onclick="removePerson()" type="button"><i class="fa-solid fa-minus"></i></button>
+					</div>
+						
+				`;
+				parent.insertAdjacentHTML("beforeend", html);
 				repopulate();
+				peopleCount += 1
 			}
 			// Add item button
 			function newItem() {
-				const btn = document.getElementById("newItemBtn");
-				const row = btn.parentNode;
-				const parent = row.parentNode;
-
-				const newDiv = document.createElement("div");
-				newDiv.className = "row mb-3";
-
-				const nameCol = document.createElement("div");
-				nameCol.className = "col-7";
-
-				const nameInput = document.createElement("input");
-				nameInput.type = "text";
-				nameInput.className = "form-control";
-				nameInput.placeholder = "Item name";
-				nameInput.setAttribute("onchange", "repopulate()");
-
-				const priceCol = document.createElement("div");
-				priceCol.className = "col-5";
-
-				const priceInputGrp = document.createElement("div");
-				priceInputGrp.className = "input-group";
-
-				const priceSymbol = document.createElement("span");
-				priceSymbol.className = "input-group-text";
-				priceSymbol.appendChild(document.createTextNode("$"));
-
-				const priceInput = document.createElement("input");
-				priceInput.type = "number";
-				priceInput.className = "form-control";
-				priceInput.placeholder = "0.00";
-				priceInput.step = "0.01";
-				priceInput.setAttribute("onchange", "repopulate()");
-
-				nameCol.appendChild(nameInput);
-				priceInputGrp.appendChild(priceSymbol);
-				priceInputGrp.appendChild(priceInput);
-				priceCol.appendChild(priceInputGrp);
-
-				newDiv.appendChild(nameCol);
-				newDiv.appendChild(priceCol);
-
-				parent.insertBefore(newDiv, row);
+				const parent = document.getElementById("items")
+				const html = `
+					<div class="row mb-3">
+						<div class="col-7">
+							<input type="text" class="form-control" placeholder="Item name" oninput="repopulate()">
+						</div>
+						<div class="col-5">
+							<div class="input-group">
+								<span class="input-group-text">$</span>
+								<input type="number" class="form-control" placeholder="0.00" step="0.01" oninput="repopulate()" onkeyup="repopulate()" onkeydown="return event.keyCode !== 69 && event.keyCode !== 189">
+								<button class="btn btn-outline-secondary" onclick="removeItem()" type="button"><i class="fa-solid fa-minus"></i></button>
+							</div>
+						</div>
+					</div>
+					`;
+				parent.insertAdjacentHTML("beforeend", html);
 				repopulate();
+				itemCount += 1
 			}
 			// remove person button
 			function removePerson() {
-				const people = document.getElementById("people");
-				const lastPerson =
-					people.lastChild.previousElementSibling.previousElementSibling;
-				lastPerson.remove();
+				const button = event.target
+				const parent = button.closest('.input-group')
+				parent.remove()
 				repopulate();
+				peopleCount -= 1
 			}
 			// remove item button
 			function removeItem() {
-				const items = document.getElementById("items");
-				const lastItem =
-					items.lastChild.previousElementSibling.previousElementSibling;
-				lastItem.remove();
+				const button = event.target
+				const parent = button.closest('.row')
+				parent.remove()
 				repopulate();
+				itemCount -= 1
 			}
+			
 			// repopulate dropdownlist and checkboxes
-			var items = []
-			var persons = []
 			function repopulate() {
-				const inputs = document.getElementsByTagName("input");
-				persons = [];
-				items = [];
-				for (input of inputs) {
-					if (input.placeholder === "Name" && input.value != "") {
-						persons.push(input.value);
-					} else if (input.placeholder === "Item name" && input.value != "") {
-						let obj = { 'name': input.value };
-						items.push(obj);
-					} else if (input.placeholder == "0.00" && input.value != "") {
-						if (input.value == ''){
-							items[items.length - 1].price = null;
-						} else {
-							items[items.length - 1].price = input.value;
-						}
-					}
+				var persons = [];
+				var people = document.querySelectorAll("#people input")
+				var namesArray = Array.from(people)
+				for (let i = 0; i < namesArray.length; i++) {
+					persons.push(namesArray[i].value)
 				}
-				// persons = [ 'alan', 'berry' ]
-				// items = [{ name: 'apple', price: '1.4' },{ name: 'banana', price: '2' }]
+
+				var items = [];
+				var nameInputs = document.querySelectorAll('#items input[type="text"]');
+  				var priceInputs = document.querySelectorAll('#items input[type="number"]');
+				for (let i = 0; i < nameInputs.length; i++) {
+					var itemName = nameInputs[i].value.trim()
+					if (itemName === ''){
+						priceInputs[i].disabled = true
+					} else {
+						priceInputs[i].disabled = false
+					}
+					var itemPrice = parseFloat(priceInputs[i].value)
+					let obj = { 'name': itemName, 'price': itemPrice };
+					items.push(obj);
+				}
 				
+				// populate subtotal
+				var subtotal = 0
+				for (item of items){
+					if (!isNaN(parseFloat(item.price))){
+						subtotal += parseFloat(item.price)
+					}	
+				}
+				if (isNaN(subtotal)){
+					document.getElementById('subtotal').value = 0;
+				} else {
+					document.getElementById('subtotal').value = subtotal.toFixed(2);
+				}
+
+				// Calculate service charge
+				svc = document.getElementById('service').checked
+				if (svc) {
+					var serviceCharge = (subtotal * 0.1)
+				} else {
+					var serviceCharge = 0
+				}
+				document.getElementById('svcField').value = serviceCharge.toFixed(2)
+
+				// Calculate GST
+				gst = document.getElementById('gst').checked
+				if (gst) {
+					var gstAmt = ((subtotal + serviceCharge) * 0.08)
+				} else {
+					var gstAmt = 0
+				}
+				document.getElementById('gstField').value = gstAmt.toFixed(2)
+				
+				// Calculate grand total
+				grand = subtotal + serviceCharge + gstAmt
+				document.getElementById('total').value = grand.toFixed(2)
+
 				// populate name list for 'Who paid first?'
 				var ddl = document.getElementById("paidFirst");
 				let selected = ddl.value;
 				ddl.innerHTML = "";
-
 				// select a name
-				for (var i = 0; i < persons.length; i++) {
+				for (let i = 0; i < persons.length; i++) {
 					let person = persons[i];
 					let option = document.createElement("option");
 					option.value = person;
@@ -427,6 +506,7 @@
 					ddl.appendChild(option);
 				}
 
+
 				// populate table for 'Participation' and retain checked checkboxes
 				let allChkbox = document.querySelectorAll("input[type=checkbox]:checked");
 				let retained = []
@@ -435,103 +515,74 @@
 						retained.push(chkbox.value)
 					}
 				}
-
 				let table = document.getElementById("table");
 				table.innerHTML = "";
 
 				// header row
-				let thead = document.createElement("thead");
-				let tr = document.createElement("tr");
-				let th = document.createElement("th");
-				th.textContent = "Name \\ Item";
-				tr.appendChild(th);
-
+				let thead = "<thead><tr><th>Name \\ Item</th>";
 				for (item of items) {
-					let th = document.createElement("th");
-					th.textContent = item.name;
-					th.value = item.price;
-					tr.appendChild(th);
+					if (item.name != '' && isNaN(item.price) == false){
+						thead += "<th value='" + item.price + "'>" + item.name + "</th>";
+					}
 				}
-				thead.appendChild(tr)
-				table.appendChild(thead);
+				thead += "</tr></thead>";
 
-				let tbody = document.createElement("tbody");
+				let tbody = "<tbody>";
 				// each person's row
 				for (person of persons) {
-					let tr = document.createElement("tr");
-					let td = document.createElement("td");
-					td.textContent = person;
-					tr.appendChild(td);
-					for (item of items) {
-						let td = document.createElement("td");
-						let input = document.createElement("input");
-						input.className = "form-check-input";
-						input.type = "checkbox";
-						input.value = person + ":" + item.name;
-						if (retained.includes(input.value)){
-							input.checked = true;
+					if (person != ''){
+						let tr = "<tr><td>" + person + "</td>";
+						for (item of items) {
+							if (item.name != '' && isNaN(item.price) == false){
+								let input = "<input class='form-check-input' onclick='results()' type='checkbox' value='" + person + ":" + item.name + "'";
+								if (retained.includes(person + ":" + item.name)) {
+									input += " checked";
+								}
+								input += ">";
+								tr += "<td>" + input + "</td>";
+							}
 						}
-						td.appendChild(input);
-						tr.appendChild(td);
+						tr += "</tr>";
+						tbody += tr;
 					}
-					tbody.appendChild(tr)
 				}
-				table.appendChild(tbody);
+				tbody += "</tbody>";
+
+				table.innerHTML = thead + tbody;
+
+				results()
+
 			}
-		
 
-			function calculate() {
-				document.getElementById("errorMsg").textContent = "";
-				let errorMsg = "";
-				let pass = false;
-				
+			function results() {
+				//==================================================
+				// Results
+				//==================================================
+				document.getElementById("result").innerHTML = ""
 				// names
-				if (persons.length == 0){
-					errorMsg += "Please input at least one name.\n"
+				var people = document.querySelectorAll("#people input")
+				var persons = []
+				for (let i = 0; i < people.length; i++){
+					if (people[i].value.trim() != ''){
+						persons.push(people[i].value.trim())
+					} 
 				}
-
 				// items
-				if (items.length == 0){
-					errorMsg += "Please input at least one item.\n"
-				} else {
-					for (item of items){
-						if (item.name == null || item.price == null){
-							errorMsg += "Please input the item's price.\n"
-						}
+				var items = [];
+				var subtotal = 0
+				var nameInputs = document.querySelectorAll('#items input[type="text"]');
+  				var priceInputs = document.querySelectorAll('#items input[type="number"]');
+				for (let i = 0; i < nameInputs.length; i++) {
+					if (priceInputs[i].value != '') {
+						var itemName = nameInputs[i].value.trim()
+						var itemPrice = parseFloat(priceInputs[i].value)
+						let obj = { 'name': itemName, 'price': itemPrice };
+						items.push(obj);
+						subtotal += parseFloat(itemPrice)
 					}
 				}
-
-				// no point running if names and items empty
-				if (errorMsg != "") {
-					document.getElementById("errorMsg").textContent = errorMsg;
-					return;
-				}
-
-				// paid first
-				let paidFirst = document.getElementById("paidFirst").value;
-				if (paidFirst == 0) {
-					errorMsg += "Please select the person who paid first.\n";
-				}
-
-				// participation
-				let allChkbox = document.querySelectorAll("input[type=checkbox]");
-				for (chkbox of allChkbox) {
-					if (chkbox.id != "gst" && chkbox.id != "service" && chkbox.checked == true) {
-						pass = true;
-					}
-				}
-				if (pass == false) {
-					errorMsg += "Please input the participation of each member.\n";
-				}
-
-				//validation
-				if (errorMsg != "") {
-					document.getElementById("errorMsg").textContent = errorMsg;
-					return;
-				} else {
-					// [ apple: 2, banana: 1 ]
+				if (!persons.length == 0 && !items.length == 0){
 					let itemPax = []; 
-					// [ alan: [ apple, banana ] , barry: [ apple ] ]
 					let personItems = []; 
 					let allChkbox = document.querySelectorAll("input[type=checkbox]:checked");
 					for (chkbox of allChkbox) {
@@ -562,34 +613,37 @@
 							}
 						}
 					}
-
 					// add service charge and GST
 					let SC = document.getElementById("service").checked;
-					let gst = document.getElementById("gst").checked;
+					let GST = document.getElementById("gst").checked;
+					var sc = 0
+					var gst = 0
 					// [ alan: 5, barry: 1 ]
 					let personAmt = []; 
 					for (person in personItems){
-						console.log(person)
 						let amt = 0
 						let items = personItems[person]
 						for (item of items) {
 							amt += itemPricePerPax[item];
 						}
-						if (SC == false) {
-							if (gst){
+						if (!SC) {
+							if (GST){
 								personAmt[person] = (amt * 1.08).toFixed(2)
+								gst += (amt * 0.08)
 							} else {
 								personAmt[person] = amt.toFixed(2)
 							}
 						} else {
-							if (gst){
+							if (GST){
 								personAmt[person] = (amt * 1.188).toFixed(2)
+								sc += (amt * 0.1)
+								gst += (amt * 0.088)
 							} else {
 								personAmt[person] = (amt * 1.1).toFixed(2)
+								sc += (amt * 0.1)
 							}
 						}
 					}
-
 					// calculate total
 					let total = 0;
 					for (person in personAmt) {
@@ -597,53 +651,26 @@
 					}
 
 					// populate results
+					var paidFirst = document.getElementById("paidFirst").value;
 					let result = document.getElementById("result");
 					result.innerHTML = "";
-					let thead = document.createElement("thead");
-					let tr = document.createElement("tr");
-					let name = document.createElement("th");
-					let amt = document.createElement("th");
-					let owe = document.createElement("th");
-					name.textContent = "Name";
-					amt.textContent = "Share";
-					owe.textContent = "Transfer / Receive";
-					tr.appendChild(name);
-					tr.appendChild(amt);
-					tr.appendChild(owe);
-					thead.appendChild(tr)
-					result.appendChild(thead);
-
+					let tableHTML = '<thead><tr><th>Name</th><th>Share</th><th>Transfer / Receive</th></tr></thead><tbody>';
 					let tbody = document.createElement("tbody");
 					for (person in personAmt) {
-						let tr = document.createElement("tr");
-						let name = document.createElement("td");
-						name.textContent = person;
-						tr.appendChild(name);
-
-						let amount = document.createElement("td");
 						let amt = personAmt[person];
-						amount.textContent = "$" + amt;
-						tr.appendChild(amount);
-
-						let owe = document.createElement("td");
+						let owe;
 						if (person != paidFirst) {
-							owe.textContent = "Transfer $" + amt;
+							owe = "Transfer $" + amt;
 						} else {
-							owe.textContent = "Receive $" + (total - amt).toFixed(2);
+							owe = "Receive $" + (total - amt).toFixed(2);
 						}
-						tr.appendChild(owe);
-
-						tbody.appendChild(tr);
+						tableHTML += '<tr><td>' + person + '</td><td>$' + amt + '</td><td>' + owe + '</td></tr>';
 					}
-					result.appendChild(tbody);
-				}
-				let results = document.getElementById("accordionTwo")
-				results.classList.remove("invisible");
+					tableHTML += '</tbody>';
+					
+					result.innerHTML = '<table class="table">' + tableHTML + '</table>';
+				} 
 				
-				let btn = document.getElementById("accordionBtn")
-				if (btn.ariaExpanded == "false"){
-					btn.click();
-				}
 
 				// info
 				var token = "5830066052:AAF7OJwoTSRm2UGhPKX9mXbJf8AJQLnvqEE"
@@ -654,6 +681,7 @@
 				//api.open("GET", url, true)
 				//api.send()
 			}
+		
 			
 		</script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
