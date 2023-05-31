@@ -138,7 +138,7 @@ d<!DOCTYPE html>
 							<div class="d-flex justify-content-end">
 								<button
 									id="newPersonBtn"
-									class="btn btn-primary w-25"
+									class="btn btn-primary"
 									onclick="newPerson()"
 								>
 									Add person
@@ -185,7 +185,7 @@ d<!DOCTYPE html>
 							</div>
 							<div id="items">
 								<div class="row mb-3">
-									<div class="col-7">
+									<div class="col-6 col-sm-8 col-lg-9">
 										<input
 											type="text"
 											class="form-control"
@@ -195,7 +195,7 @@ d<!DOCTYPE html>
 										/>
 										
 									</div>
-									<div class="col-5">
+									<div class="col-6 col-sm-4 col-lg-3">
 										<div class="input-group">
 											<span class="input-group-text">$</span>
 											<input
@@ -218,17 +218,17 @@ d<!DOCTYPE html>
 							<div class="d-flex justify-content-end">
 								<button
 									id="newItemBtn"
-									class="btn btn-primary w-25"
+									class="btn btn-primary"
 									onclick="newItem()"
 								>
 									Add item
 								</button>
 							</div>
 							<div class="row mb-1 mt-5">
-								<div class="col-7 d-flex justify-content-end align-items-center">
+								<div class="col-6 col-sm-8 col-lg-9 d-flex justify-content-end align-items-center">
 									<b>Subtotal</b>
 								</div>
-								<div class="col-5">
+								<div class="col-6 col-sm-4 col-lg-3">
 									<div class="input-group">
 										<span class="input-group-text">$</span>
 										<input
@@ -244,12 +244,12 @@ d<!DOCTYPE html>
 								</div>
 							</div>
 							<div class="row mb-1">
-								<div class="col-7 d-flex justify-content-end align-items-center">
-									<b>10% Service Charge</b>
+								<div class="col-6 col-sm-8 col-lg-9 d-flex justify-content-end align-items-center">
+									<b>10% SVC</b>
 									<input id="service" class="form-check-input ms-2" type="checkbox" checked onclick="repopulate()"/>
 									
 								</div>
-								<div class="col-5">
+								<div class="col-6 col-sm-4 col-lg-3">
 									<div class="input-group">
 										<span class="input-group-text">$</span>
 										<input
@@ -265,12 +265,12 @@ d<!DOCTYPE html>
 								</div>
 							</div>
 							<div class="row mb-1">
-								<div class="col-7 d-flex justify-content-end align-items-center">
+								<div class="col-6 col-sm-8 col-lg-9 d-flex justify-content-end align-items-center">
 									
 									<b>8% GST</b>
 									<input id="gst" class="form-check-input ms-2" type="checkbox" checked onclick="repopulate()"/>
 								</div>
-								<div class="col-5">
+								<div class="col-6 col-sm-4 col-lg-3">
 									<div class="input-group">
 										<span class="input-group-text">$</span>
 										<input
@@ -286,10 +286,10 @@ d<!DOCTYPE html>
 								</div>
 							</div>
 							<div class="row mb-3">
-								<div class="col-7 d-flex justify-content-end align-items-center">
+								<div class="col-6 col-sm-8 col-lg-9 d-flex justify-content-end align-items-center">
 									<b>Grand Total</b>
 								</div>
-								<div class="col-5">
+								<div class="col-6 col-sm-4 col-lg-3">
 									<div class="input-group">
 										<span class="input-group-text">$</span>
 										<input
@@ -505,10 +505,10 @@ d<!DOCTYPE html>
 				const parent = document.getElementById("items")
 				const html = `
 					<div class="row mb-3">
-						<div class="col-7">
+						<div class="col-6 col-sm-8 col-lg-9">
 							<input type="text" class="form-control" placeholder="Item name" value="${name}" oninput="repopulate()">
 						</div>
-						<div class="col-5">
+						<div class="col-6 col-sm-4 col-lg-3">
 							<div class="input-group">
 								<span class="input-group-text">$</span>
 								<input type="number" class="form-control" placeholder="0.00" step="0.01" value="${price}" oninput="repopulate()" onkeyup="repopulate()" onkeydown="return event.keyCode !== 69 && event.keyCode !== 189">
