@@ -448,6 +448,7 @@
 				alert2.style.display = "none"
 				const receiptImage = document.getElementById("receiptImage")
 				const image = receiptImage.files[0]
+				console.log(image)
 				const formData = new FormData()
   				formData.append("file", image)
 				formData.append("detectOrientation", true)
@@ -471,6 +472,7 @@
 				})
 				.then(function (response){
 					// returned data
+					console.log(response.data)
 					console.log(response.data.ParsedResults[0].ParsedText)
 					text = response.data.ParsedResults[0].ParsedText
 					// split by new lines
