@@ -498,18 +498,18 @@
 					for (let i of lines){
 						newItem(i.name, i.price)
 					}
-					overlay.style.display = "none";
-					document.body.style.pointerEvents = "auto";
+
 					repopulate();
 					const alert = document.getElementById("alertSuccess");
 					alert.style.display = "block";
 				})
 				.catch (function (error) {
 					console.log(error)
-					overlay.style.display = "none";
 					const alert = document.getElementById("alertFailure");
 					alert.style.display = "block";
 				})
+				overlay.style.display = "none";
+				document.body.style.pointerEvents = "auto";
 			}
 			// Add item button
 			function newItem(name= "", price= "") {
