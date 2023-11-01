@@ -393,8 +393,24 @@
 							<div class="table-responsive">
 								<table class="table" id="result"></table>
 								<p>
-									If this helped you, please drop a like here!
-									<button class="btn btn-primary" onclick="like()" type="button">🤩💯</button>
+									If this helped you, please drop a like below!
+									
+									<div class="input-group">
+										<input
+										id="message"
+										type="text"
+										class="form-control"
+										placeholder="Optional message or feedback (you are anonymous)"
+										/>
+									
+										<button class="btn btn-danger" onclick="like()" type="button">
+											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+												<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+											</svg>
+										</button>
+									</div>
+									<div id="likeSuccess" class="d-none valid-feedback">Sent!</div>
+									<div id="likeError" class="d-none invalid-feedback">Some error occurred! Please try again later.</div>
 								</p>
 							</div>
 							
@@ -795,28 +811,31 @@
 					
 					result.innerHTML = '<table class="table">' + tableHTML + '</table>';
 				} 
-				
-
-				// info
-				var token = "5830066052:AAF7OJwoTSRm2UGhPKX9mXbJf8AJQLnvqEE"
-				var chatID = "-895236873"
-				var text = `1 person just clicked the big green button.\n\n`
-				var url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatID}&text=${text}`
-				let api = new XMLHttpRequest();
-				//api.open("GET", url, true)
-				//api.send()
 			}
 			
-			function like(){
-				var token = "6042304491:AAG0Oh1Y9wqccUaHc51M_a07i5JZwSXX62o";
-				var chatID = "-1001815908809";
-				var text = encodeURIComponent(
-					`Someone liked your receipt calc app`
-				);
-				var url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatID}&text=${text}`;
-				fetch(url).then((response) => {
-					console.log(response)
-				})
+			async function like() {
+				const message = document.getElementById("message").value
+				console.log(message)
+				const likeSuccess = document.getElementById("likeSuccess")
+				const likeError = document.getElementById("likeError")
+				likeSuccess.classList.add("d-none")
+				likeError.classList.add("d-none")
+				try {
+					var token = "6042304491:AAG0Oh1Y9wqccUaHc51M_a07i5JZwSXX62o";
+					var chatID = "-1001815908809";
+					var text = encodeURIComponent(
+						`Someone liked your receipt calc app\nMessage: ${message}`
+					);
+					var url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatID}&text=${text}`;
+					fetch(url).then((response) => {
+						console.log(response)
+					})
+					likeSuccess.classList.remove("d-none")
+					likeSuccess.classList.add("d-block")
+				} catch (error) {
+					console.log(error)
+					likeError.classList.remove("d-none")
+				}
 			}
 
 		</script>
