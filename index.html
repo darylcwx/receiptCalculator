@@ -66,12 +66,13 @@
 					friends who drink with friends who don't.
 				</p>
 				<p>
-					Works best if one person paid for everything first. Or just settle your own receipt and send your friend <a href="" id="copy" onclick="copyToClipboard()" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Copy link to clipboard">this site</a>. 👀
+					Works best if one person paid for everything first. If not, try <button class="btn btn-primary" style="margin-left: 0.25rem; margin-right: 0.25rem;" href="https://transferwho.vercel.app" target="_blank" rel="noopener noreferrer">Transfer Who</button> instead! 
 				</p>
 				<p>
 					Simply follow the instructions in each segment and let me handle the rest for you!
 					
 				</p>
+				<p>
 					Optical Character Recognition (OCR) has been implemented. However, I haven't tested with enough receipts. Feel free to send me feedback via Telegram <a href="https://t.me/damnsope" target="_blank">@damnsope</a>. 
 				</p>
 			</div>
@@ -437,11 +438,6 @@
 				const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 			}
 
-			function copyToClipboard(){
-				const site = "https://receipt-calculator.vercel.app/";
-				navigator.clipboard.writeText(site);
-				alert("Copied!");
-			}
 			var peopleCount = 2
 			var itemCount = 1
 			// Add person button
