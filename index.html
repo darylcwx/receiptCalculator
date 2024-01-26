@@ -258,7 +258,7 @@
 							<div class="row mb-1">
 								<div class="col-6 col-sm-8 col-lg-9 d-flex justify-content-end align-items-center">
 									
-									<b>8% GST</b>
+									<b>9% GST</b>
 									<input id="gst" class="form-check-input ms-2" type="checkbox" checked onclick="repopulate()"/>
 								</div>
 								<div class="col-6 col-sm-4 col-lg-3">
@@ -616,7 +616,7 @@
 				// Calculate GST
 				gst = document.getElementById('gst').checked
 				if (gst) {
-					var gstAmt = ((subtotal + serviceCharge) * 0.08)
+					var gstAmt = ((subtotal + serviceCharge) * 0.09)
 				} else {
 					var gstAmt = 0
 				}
