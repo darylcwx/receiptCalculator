@@ -66,11 +66,11 @@
 					friends who drink with friends who don't.
 				</p>
 				<p>
-					Works best if one person paid for everything first. If not, try <button class="btn btn-primary" style="margin-left: 0.25rem; margin-right: 0.25rem;" href="https://transferwho.vercel.app" target="_blank" rel="noopener noreferrer">Transfer Who</button> instead! 
+					<!-- If not, try <button class="btn btn-primary" style="margin-left: 0.25rem; margin-right: 0.25rem;" href="https://transferwho.vercel.app" target="_blank" rel="noopener noreferrer">Transfer Who</button> instead!  -->
 				</p>
 				<p>
+					Works best if one person paid for everything first. 
 					Simply follow the instructions in each segment and let me handle the rest for you!
-					
 				</p>
 				<p>
 					Optical Character Recognition (OCR) has been implemented. However, I haven't tested with enough receipts. Feel free to send me feedback via Telegram <a href="https://t.me/damnsope" target="_blank">@damnsope</a>. 
@@ -359,6 +359,11 @@
 							<p>For each person, tick their box if they had a share in that particular item.<br>
 								<small style="opacity: 70%;">This area will only populate after you've filled in the above.</small>
 							</p>
+							<div class="d-flex justify-content-end">
+								<button id="checkAllBtn" class="btn btn-primary" onclick="checkAll()">
+									Check all
+								</button>
+							</div>
 							<div class="table-responsive">
 								<table class="table" id="table"></table>
 							</div>
@@ -440,6 +445,8 @@
 
 			var peopleCount = 2
 			var itemCount = 1
+			var checked = false
+			
 			// Add person button
 			function newPerson() {
 				const parent = document.getElementById("people");
@@ -529,6 +536,7 @@
 					alert.style.display = "block";
 				})
 			}
+			
 			// Add item button
 			function newItem(name= "", price= "") {
 				const parent = document.getElementById("items")
@@ -565,6 +573,25 @@
 				parent.remove()
 				repopulate();
 				itemCount -= 1
+			}
+
+			// check all boxes
+			function checkAll(){
+				var checkAllBtn = document.getElementById("checkAllBtn");
+				var allBox = document.querySelectorAll("input[type=checkbox]");
+				for (box of allBox) {
+					if (box.id != "gst" && box.id != "service") {
+						box.checked = !checked;
+					}
+				}
+				if (checked) {
+					checked = false;
+					checkAllBtn.innerText = "Check all";
+				} else {
+					checked = true;
+					checkAllBtn.innerText = "Uncheck all";
+				}
+				repopulate();
 			}
 			
 			// repopulate dropdownlist and checkboxes
@@ -644,7 +671,7 @@
 				}
 
 
-				// populate table for 'Participation' and retain checked checkboxes
+				// populate table for 'Participation' aned retain checked checkboxs
 				let allChkbox = document.querySelectorAll("input[type=checkbox]:checked");
 				let retained = []
 				for (chkbox of allChkbox) {
