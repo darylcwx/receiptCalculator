@@ -158,12 +158,12 @@
 						aria-labelledby="headingTwo"
 					>
 						<div class="accordion-body">
-							<p>Please enter all items and their prices before service charge and GST.<br>
+							<p>Please enter all items and their prices <b>before</b> service charge and GST.<br>
 								<small style="opacity: 70%;">The item names will help you decide who shared what later on.</small>
 							</p>
 							<div class="p-3 bg-light rounded mb-3">
 								<p>Autofill your items by uploading an image of your receipt. <br>
-									<small style="opacity: 70%;">Currently only supports JPEG and PNG file formats. (i.e., regular iPhone photos which are .HEIC files will not work.)</small>
+									<small style="opacity: 70%;">Currently only supports JPEG and PNG file formats.</small>
 								</p>
 								<input id="receiptImage" type="file" accept="image/*" onchange="returnImageContents()"/>
 							</div>
@@ -356,7 +356,7 @@
 						aria-labelledby="headingFour"
 					>
 						<div class="accordion-body">
-							<p>For each person, tick their box if they had a share in that particular item.<br>
+							<p>For each person, check the box if they had a share in that particular item.<br>
 								<small style="opacity: 70%;">This area will only populate after you've filled in the above.</small>
 							</p>
 							<div class="d-flex justify-content-end">
@@ -396,6 +396,11 @@
 						data-bs-parent="#accordionTwo"
 					>
 						<div class="accordion-body">
+							<div class="d-flex justify-content-end">
+								<button id="copyBtn" class="btn btn-primary" onclick="copyAsText()">
+									Copy text
+								</button>
+							</div>
 							<div class="table-responsive">
 								<table class="table" id="result"></table>
 								<p>
@@ -434,7 +439,9 @@
 			<div id="overlay" style="display: none;">
 				<div id="overlay-content">Hang on, I'm extracting the text from your photo! 🤯</div>
 			</div>
-			
+			<span id="copyBadge" style="display:none;position:fixed;top:20px;right:20px;padding:10px;z-index:9;" class="alert alert-success">
+					Text copied!
+			</span>
 		</div>
 		<script>
 			// initialize tooltips
@@ -835,6 +842,37 @@
 					result.innerHTML = '<table class="table">' + tableHTML + '</table>';
 				} 
 			}
+
+			function copyAsText() {
+				const table = document.querySelector("#result");
+				if (!table) {
+					console.log("no table found");
+					return;
+				}
+
+				const rows = table.querySelectorAll("tr");
+				let out = [];
+
+				rows.forEach((r, i) => {
+					if (i === 0) return; // skip header
+					const cols = r.querySelectorAll("td");
+					if (cols.length < 2) return;
+					const name = cols[0].innerText.trim();
+					const amt  = cols[1].innerText.trim();
+					out.push(`${name} ${amt}`);
+				});
+
+				navigator.clipboard.writeText(out.join("\n"));
+
+				const badge = document.getElementById("copyBadge");
+				badge.style.display = "block";
+				badge.style.opacity = "1";
+				setTimeout(() => {
+					badge.style.transition = "opacity 0.5s";
+					badge.style.opacity = "0";
+				}, 1000);
+			}	
+			
 			
 			async function like() {
 				const message = document.getElementById("message").value
